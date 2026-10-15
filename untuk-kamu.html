@@ -1,0 +1,500 @@
+```html
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Untuk Kamu 🌸</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    :root {
+      --pink: #e88bb8;
+      --pink-light: #ffd8e9;
+      --purple: #bba3e8;
+      --text: #746071;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      color: var(--text);
+      overflow-x: hidden;
+      background:
+        radial-gradient(ellipse at 10% 10%, rgba(255,192,215,.65), transparent 42%),
+        radial-gradient(ellipse at 90% 20%, rgba(211,190,255,.55), transparent 45%),
+        radial-gradient(ellipse at 50% 90%, rgba(255,225,194,.5), transparent 45%),
+        linear-gradient(180deg, #fff9fc, #f9f0ff 50%, #fff5f8);
+      background-attachment: fixed;
+    }
+
+    .font-serif {
+      font-family: 'Playfair Display', serif;
+    }
+
+    /* Cahaya pastel yang bergerak */
+    .gradient-blob {
+      position: fixed;
+      width: 350px;
+      height: 350px;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: .42;
+      z-index: 0;
+      pointer-events: none;
+      animation: blobMove 14s ease-in-out infinite;
+    }
+
+    @keyframes blobMove {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      35% { transform: translate(35px, -25px) scale(1.1); }
+      70% { transform: translate(-25px, 30px) scale(.95); }
+    }
+
+    /* Bunga yang jatuh */
+    .petal {
+      position: fixed;
+      top: -60px;
+      z-index: 0;
+      pointer-events: none;
+      user-select: none;
+      opacity: 0;
+      filter: drop-shadow(0 3px 6px rgba(220,130,180,.25));
+      animation: fall linear infinite;
+      will-change: transform;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translate3d(0, -5vh, 0) rotate(0deg);
+        opacity: 0;
+      }
+      10% { opacity: .85; }
+      50% {
+        transform: translate3d(45px, 50vh, 0) rotate(180deg);
+      }
+      90% { opacity: .75; }
+      100% {
+        transform: translate3d(-35px, 110vh, 0) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* Bintang kecil berkilau */
+    .particle {
+      position: fixed;
+      border-radius: 50%;
+      z-index: 0;
+      pointer-events: none;
+      box-shadow: 0 0 15px currentColor;
+      animation: sparkle 5s ease-in-out infinite;
+    }
+
+    @keyframes sparkle {
+      0%, 100% {
+        transform: translateY(0) scale(.7);
+        opacity: .2;
+      }
+      50% {
+        transform: translateY(-22px) scale(1.3);
+        opacity: .85;
+      }
+    }
+
+    /* Isi website */
+    .content {
+      position: relative;
+      z-index: 1;
+    }
+
+    section {
+      position: relative;
+    }
+
+    /* Animasi muncul ketika di-scroll */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Judul */
+    h1, h2 {
+      text-shadow: 0 3px 20px rgba(211,155,194,.2);
+    }
+
+    h1 {
+      animation: titleGlow 4s ease-in-out infinite;
+    }
+
+    @keyframes titleGlow {
+      0%, 100% {
+        text-shadow: 0 3px 18px rgba(232,139,184,.15);
+      }
+      50% {
+        text-shadow: 0 3px 30px rgba(232,139,184,.42);
+      }
+    }
+
+    /* Bingkai foto: file foto tetap sama */
+    .photo-frame {
+      position: relative;
+      border: 1px solid rgba(231,167,207,.7);
+      background: rgba(255,255,255,.72);
+      box-shadow: 0 12px 35px rgba(191,133,180,.16);
+      transition: transform .45s ease, box-shadow .45s ease;
+    }
+
+    .photo-frame::before {
+      content: '✧  🌸  ✧';
+      position: absolute;
+      top: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      background: rgba(255,249,252,.9);
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+      box-shadow: 0 3px 12px rgba(0,0,0,.05);
+    }
+
+    .photo-frame:hover {
+      transform: translateY(-7px) scale(1.015);
+      box-shadow: 0 22px 48px rgba(191,133,180,.28);
+    }
+
+    .photo-frame img {
+      transition: transform .7s ease;
+    }
+
+    .photo-frame:hover img {
+      transform: scale(1.025);
+    }
+
+    /* Tombol musik */
+    .audio-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 66px;
+      height: 66px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 1px solid rgba(232,156,194,.5);
+      background: rgba(255,255,255,.7);
+      color: #c77aa5;
+      font-size: 23px;
+      box-shadow: 0 5px 25px rgba(221,148,190,.22);
+      transition: all .35s ease;
+    }
+
+    .audio-btn:hover {
+      transform: scale(1.1);
+      background: white;
+      box-shadow: 0 8px 30px rgba(221,148,190,.4);
+    }
+
+    .audio-btn.playing {
+      animation: musicPulse 1.8s ease-in-out infinite;
+      color: #e879b0;
+    }
+
+    @keyframes musicPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.12); }
+    }
+
+    /* Link lanjut */
+    .continue-link {
+      display: inline-block;
+      padding: 10px 18px;
+      border: 1px solid rgba(224,165,201,.55);
+      border-radius: 30px;
+      color: #99748e;
+      background: rgba(255,255,255,.45);
+      transition: all .3s ease;
+    }
+
+    .continue-link:hover {
+      background: rgba(255,255,255,.9);
+      color: #cf78a6;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(220,150,190,.18);
+    }
+
+    /* Hiasan antarbab */
+    .decoration {
+      color: #dc9ec3;
+      font-size: 20px;
+      letter-spacing: 8px;
+      margin-bottom: 20px;
+      opacity: .85;
+    }
+
+    /* Footer */
+    footer {
+      letter-spacing: 1px;
+    }
+
+    footer p::before {
+      content: '🌸 ';
+    }
+
+    footer p::after {
+      content: ' 🌸';
+    }
+
+    /* Tampilan HP */
+    @media (max-width: 600px) {
+      .gradient-blob {
+        width: 240px;
+        height: 240px;
+        filter: blur(75px);
+      }
+
+      .photo-frame img {
+        height: 300px;
+      }
+
+      section {
+        scroll-margin-top: 20px;
+      }
+    }
+
+    /* Hormati pengaturan animasi perangkat */
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+
+      .fade-in {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Cahaya pastel -->
+  <div class="gradient-blob" style="top:10%;left:-10%;background:#ffc8e0;"></div>
+  <div class="gradient-blob" style="top:45%;right:-15%;background:#d7c4ff;animation-delay:4s;"></div>
+  <div class="gradient-blob" style="bottom:5%;left:20%;background:#ffe8b8;animation-delay:8s;"></div>
+
+  <!-- Bunga sakura berguguran -->
+  <div class="petal" style="left:5%;animation-duration:14s;animation-delay:0s;font-size:22px;">🌸</div>
+  <div class="petal" style="left:13%;animation-duration:18s;animation-delay:4s;font-size:16px;">🌷</div>
+  <div class="petal" style="left:22%;animation-duration:15s;animation-delay:2s;font-size:20px;">💮</div>
+  <div class="petal" style="left:32%;animation-duration:20s;animation-delay:6s;font-size:17px;">🌸</div>
+  <div class="petal" style="left:42%;animation-duration:13s;animation-delay:1s;font-size:24px;">🌺</div>
+  <div class="petal" style="left:52%;animation-duration:17s;animation-delay:5s;font-size:18px;">🌸</div>
+  <div class="petal" style="left:63%;animation-duration:21s;animation-delay:3s;font-size:15px;">💮</div>
+  <div class="petal" style="left:73%;animation-duration:16s;animation-delay:7s;font-size:23px;">🌸</div>
+  <div class="petal" style="left:83%;animation-duration:19s;animation-delay:2s;font-size:18px;">🌷</div>
+  <div class="petal" style="left:94%;animation-duration:14s;animation-delay:6s;font-size:21px;">🌸</div>
+
+  <!-- Partikel berkilau -->
+  <div class="particle" style="left:15%;top:30%;width:10px;height:10px;background:#f7a9d0;color:#f7a9d0;"></div>
+  <div class="particle" style="left:75%;top:20%;width:8px;height:8px;background:#c6a9ff;color:#c6a9ff;animation-delay:2s;"></div>
+  <div class="particle" style="left:35%;top:70%;width:12px;height:12px;background:#ffe3a1;color:#ffe3a1;animation-delay:4s;"></div>
+  <div class="particle" style="left:60%;top:80%;width:8px;height:8px;background:#f7a9d0;color:#f7a9d0;animation-delay:1s;"></div>
+  <div class="particle" style="left:85%;top:60%;width:10px;height:10px;background:#c6a9ff;color:#c6a9ff;animation-delay:3s;"></div>
+  <div class="particle" style="left:25%;top:85%;width:7px;height:7px;background:#ffe3a1;color:#ffe3a1;animation-delay:5s;"></div>
+
+  <div class="content">
+
+    <!-- Halaman pembuka -->
+    <section class="min-h-screen flex flex-col items-center justify-center text-center px-6">
+      <div class="fade-in">
+
+        <p class="text-sm mb-4 tracking-widest" style="color:#c18eae;">
+          ✧ ── Untuk Kamu ── ✧
+        </p>
+
+        <p style="font-size:30px;margin-bottom:12px;">🌸 🌷 🌸</p>
+
+        <h1 class="font-serif text-4xl md:text-5xl mb-6" style="color:#856c86;">
+          Kamu Berharga
+        </h1>
+
+        <p class="max-w-md mx-auto leading-relaxed mb-8" style="color:#927f91;">
+          Aku tahu beberapa hari terasa berat, tapi kamu tidak perlu menghadapinya sendirian.
+        </p>
+
+        <div class="mb-10">
+          <button id="audioButton" class="audio-btn" aria-label="Putar atau jeda musik">
+            <i class="fa fa-music"></i>
+          </button>
+          <p id="audioStatus" class="text-xs mt-3" style="color:#b39ab0;">
+            ♡ klik untuk memutar ♡
+          </p>
+        </div>
+
+        <a href="#photo" class="continue-link">
+          Lanjut <i class="fa fa-chevron-down ml-1 text-xs"></i>
+        </a>
+
+        <p class="mt-12 text-sm" style="color:#c7a9c1;">
+          ୨୧ · Semoga harimu indah · ୨୧
+        </p>
+      </div>
+    </section>
+
+    <!-- Bagian foto: nama file tidak diubah -->
+    <section id="photo" class="px-6 py-20 max-w-lg mx-auto text-center">
+      <div class="fade-in">
+
+        <div class="decoration">✧ ❀ ✧</div>
+
+        <h2 class="font-serif text-2xl mb-3" style="color:#856c86;">
+          Satu Kenangan
+        </h2>
+
+        <p class="text-sm mb-7" style="color:#b49caf;">
+          Sebuah momen kecil yang berarti ♡
+        </p>
+
+        <div class="photo-frame rounded-2xl overflow-hidden p-3">
+          <img
+            src="foto.jpg"
+            alt="Satu kenangan"
+            class="w-full h-80 object-cover rounded-xl"
+          >
+        </div>
+
+        <p class="font-serif italic mt-6 text-sm" style="color:#b38ba9;">
+          "Beberapa hal sederhana bisa menjadi kenangan yang indah."
+        </p>
+
+      </div>
+    </section>
+
+    <!-- Bagian pesan -->
+    <section class="px-6 py-20 max-w-lg mx-auto text-center">
+      <div class="fade-in">
+
+        <div class="decoration">🌸 · ✧ · 🌸</div>
+
+        <h2 class="font-serif text-2xl mb-8" style="color:#856c86;">
+          Sedikit Pesan
+        </h2>
+
+        <div class="rounded-2xl p-7"
+          style="background:rgba(255,255,255,.48);
+          border:1px solid rgba(230,192,220,.65);
+          box-shadow:0 10px 35px rgba(191,133,180,.09);">
+
+          <p class="leading-relaxed mb-5" style="color:#927f91;">
+            Kamu lebih kuat dari yang kamu kira. Setiap langkah kecil yang kamu ambil itu berarti, dan setiap usahamu tidak akan sia-sia.
+          </p>
+
+          <p class="leading-relaxed mb-6" style="color:#927f91;">
+            Banggalah pada dirimu, bahkan untuk hal-hal kecil yang tak dilihat orang lain. Kamu berharga, kamu tidak sendirian.
+          </p>
+
+          <div style="color:#df9fc7;font-size:20px;margin-bottom:12px;">
+            ❀ ♡ ❀
+          </div>
+
+          <p class="font-serif italic" style="color:#a7789d;">
+            "Lakukan yang terbaik, sisanya akan mengikuti."
+          </p>
+        </div>
+
+        <p class="mt-8 text-sm" style="color:#b49caf;">
+          Pelan-pelan saja, kamu tetap sedang bertumbuh. 🌷
+        </p>
+
+      </div>
+    </section>
+
+    <!-- Penutup -->
+    <footer class="py-12 text-center text-sm" style="color:#b49caf;">
+      <p>Dibuat khusus untuk kamu.</p>
+      <div class="mt-5" style="font-size:23px;color:#e2a2c9;">
+        ✧ 🌸 ♡ 🌸 ✧
+      </div>
+      <p class="mt-4" style="font-size:10px;opacity:.7;">
+        made with love
+      </p>
+    </footer>
+
+  </div>
+
+  <!-- Lagu: nama file tetap sama -->
+  <audio id="audioPlayer" loop preload="auto">
+    <source src="lagu.mp3.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const audioButton = document.getElementById('audioButton');
+    const audioPlayer = document.getElementById('audioPlayer');
+    const audioStatus = document.getElementById('audioStatus');
+
+    audioButton.addEventListener('click', async () => {
+      if (audioPlayer.paused) {
+        try {
+          await audioPlayer.play();
+          audioButton.classList.add('playing');
+          audioButton.innerHTML = '<i class="fa fa-pause"></i>';
+          audioStatus.textContent = 'sedang diputar 🎵';
+        } catch (err) {
+          audioStatus.textContent = 'periksa file lagu.mp3.mp3 ya ♡';
+          console.error('Musik tidak dapat diputar:', err);
+        }
+      } else {
+        audioPlayer.pause();
+        audioButton.classList.remove('playing');
+        audioButton.innerHTML = '<i class="fa fa-music"></i>';
+        audioStatus.textContent = 'dijeda ♡';
+      }
+    });
+
+    audioPlayer.addEventListener('ended', () => {
+      audioButton.classList.remove('playing');
+      audioButton.innerHTML = '<i class="fa fa-music"></i>';
+      audioStatus.textContent = 'klik untuk memutar ♡';
+    });
+
+    // Animasi muncul saat bagian website terlihat
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, {
+      threshold: 0.12
+    });
+
+    document.querySelectorAll('.fade-in').forEach(el => {
+      observer.observe(el);
+    });
+  </script>
+
+</body>
+</html>
+```
